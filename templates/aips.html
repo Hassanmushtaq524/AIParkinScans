@@ -1,0 +1,346 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<section class="section bg-black" id="about">
+  <div class="container" style="position: relative; top: 36px">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="text-center mb-5">
+          <h2 class="highlight header-colorize text-uppercase mb-3">AIPS Testing</h2>
+          <p class="text-sub size-14">
+          </p>
+        </div>
+      </div>
+
+      <head>
+        <script src="//lab.subinsb.com/projects/jquery/core/jquery-2.1.1.js"></script>
+        <script src="//lab.subinsb.com/projects/jquery/voice/recorder.js"></script>
+        <script src="//lab.subinsb.com/projects/jquery/voice/jquery.voice.min.js"></script>
+        <script src="cdn/record.js"></script>
+      </head>
+
+      <body>
+        <div id="content">
+          <style>
+            .button {
+              display: inline-block;
+              vertical-align: middle;
+              margin: 0px 5px;
+              padding: 5px 12px;
+              cursor: pointer;
+              outline: none;
+              font-size: 13px;
+              text-decoration: none !important;
+              text-align: center;
+              color: #fff;
+              background-color: #4D90FE;
+              background-image: linear-gradient(top, #4D90FE, #4787ED);
+              background-image: -ms-linear-gradient(top, #4D90FE, #4787ED);
+              background-image: -o-linear-gradient(top, #4D90FE, #4787ED);
+              background-image: linear-gradient(top, #4D90FE, #4787ED);
+              border: 1px solid #4787ED;
+              box-shadow: 0 1px 3px #BFBFBF;
+            }
+
+            a.button {
+              color: #fff;
+            }
+
+            .button:hover {
+              box-shadow: inset 0px 1px 1px #8C8C8C;
+            }
+
+            .button.disabled {
+              box-shadow: none;
+              opacity: 0.7;
+            }
+          </style>
+        </div>
+
+    </div>
+    <div class="row align-items-center">
+      <!-- <div class="col-lg-5">
+            <img src="images/header-about.png" alt="" class="img-fluid mx-auto d-block">
+          </div> -->
+      <div class="col-lg-10 offset-lg-1">
+        <div class="text-sub mt-5 mt-lg-0">
+          <h3 class="title font-weight-medium mb-4">AIPS what?
+          </h3>
+          <p class="mb-4 size-16">Currently there is no specific test to diagnose Parkinson's disease. Doctors
+            usually diagnose the disease by taking a person’s medical history and performing a neurological
+            examination. Making an accurate diagnosis of Parkinson’s disease can be complicated. Doctors must
+            carefully weigh symptoms, family history and other factors to come to a conclusion.
+            Since the symptoms of this disease are quite similar to some other diseases (such as asymmetric
+            bradykinesia, and resting tremor, besides others) it can often be misdiagnosed. Misdiagnosis is even
+            higher when only the initial diagnosis is considered, and diagnostic accuracy improves by time, during
+            follow-up visits.
+            Using Artificial Intelligence (AI), our product AIParkinScan, or AIPS, aims to provide easy and accurate
+            tests that could tell users if they potentially have Parkinson’s disease. Since AIPS is available online
+            for everyone, it helps anyone to self-screen in the comfort and privacy of their homes, while also
+            saving on expensive trips to the doctor.
+
+          </p>
+
+          <br>
+          <h3 class="title font-weight-medium mb-4">Take the Test
+          </h3>
+          <p class="mb-4 size-18">
+            Make sure you have a pen/pencil and piece of paper.
+          </p>
+          <p class="title font-weight-medium mb-4">
+            Task 1:
+          </p>
+          <p class="mb-4 size-18">
+            See the below spiral. Take the piece of paper, and draw the spiral in this image. Upload a picture of
+            your spiral and press the submit button.
+          </p>
+          <br>
+          <img src="{{url_for('static', filename='/images/healthspiral.png')}}"
+            style="position:relative;left: 210px;width:50%"></img><br><br><br>
+          <form action="/spiral" style="position: relative; left: 190px" id="spiral-form" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <button class="btn btn-secondary"type="submit">Submit</button>
+            
+          </form><br>
+          <div class="container">
+            <h6 class="{{className}}"> Task 1 of 2 Completed</h1>
+            <style>
+              .hide {
+                display: none;
+              }
+              .show {
+                display: block;
+              }
+            </style>
+          </div>
+
+
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <title>Example 2</title>
+          </head>
+          <p class="title font-weight-medium mb-4">
+            Task 2:
+          </p>
+          <p class="mb-4 size-18">Record yourself saying this sentence: "Applications in geography matter. limited,
+            1991, page 100 to 224, 1979 s units. This is because there is less scattering of blue light at the
+            atmospheric part, and consequently, the degree of scattering of incoming radiation is reduced." If you
+            finish, click button to get your diagnosed tests.
+            <div class="container">
+              <audio controls id="audio" src=""></audio>
+            </div>
+            
+            <br>
+            <button class="btn waves-effect waves-light" id="startRecording">Start</button>
+            <button class="btn waves-effect waves-light" id="stopRecording" disabled>Stop</button>
+            <br>
+            <a id="download" class="hide">Download Audio</a>
+            <br>
+            <button class="btn waves-effect waves-light js-code">Show Code</button>
+          <form action="/audio" id="audio-form" method="POST"  enctype="multipart/form-data">
+            <input type="file" name="audio-file" value="Choose audio">
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+        <hr>
+        <pre style="font-family: GillSans, Calibri, Trebuchet, sans-serif;" class="hide"></pre>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <script class="containerScript">
+
+          window.AudioContext = window.AudioContext || window.webkitAudioContext;
+          navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+          window.URL = window.URL || window.webkitURL;
+
+          let getBrowser = () => {
+            console.log('function getBrowser() {');
+            var nVer = navigator.appVersion;
+            var nAgt = navigator.userAgent;
+            var browserName = navigator.appName;
+            var fullVersion = '' + parseFloat(navigator.appVersion);
+            var majorVersion = parseInt(navigator.appVersion, 10);
+            var nameOffset, verOffset, ix;
+
+            // In Opera, the true version is after "Opera" or after "Version"
+            if ((verOffset = nAgt.indexOf("Opera")) != -1) {
+              browserName = "Opera";
+              fullVersion = nAgt.substring(verOffset + 6);
+              if ((verOffset = nAgt.indexOf("Version")) != -1)
+                fullVersion = nAgt.substring(verOffset + 8);
+            }
+            // In MSIE, the true version is after "MSIE" in userAgent
+            else if ((verOffset = nAgt.indexOf("MSIE")) != -1) {
+              browserName = "Microsoft Internet Explorer";
+              fullVersion = nAgt.substring(verOffset + 5);
+            }
+            // In Chrome, the true version is after "Chrome"
+            else if ((verOffset = nAgt.indexOf("Chrome")) != -1) {
+              browserName = "Chrome";
+              fullVersion = nAgt.substring(verOffset + 7);
+            }
+            // In Safari, the true version is after "Safari" or after "Version"
+            else if ((verOffset = nAgt.indexOf("Safari")) != -1) {
+              browserName = "Safari";
+              fullVersion = nAgt.substring(verOffset + 7);
+              if ((verOffset = nAgt.indexOf("Version")) != -1)
+                fullVersion = nAgt.substring(verOffset + 8);
+            }
+            // In Firefox, the true version is after "Firefox"
+            else if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
+              browserName = "Firefox";
+              fullVersion = nAgt.substring(verOffset + 8);
+            }
+            // In most other browsers, "name/version" is at the end of userAgent
+            else if ((nameOffset = nAgt.lastIndexOf(' ') + 1) < (verOffset = nAgt.lastIndexOf('/'))) {
+              browserName = nAgt.substring(nameOffset, verOffset);
+              fullVersion = nAgt.substring(verOffset + 1);
+              if (browserName.toLowerCase() == browserName.toUpperCase()) {
+                browserName = navigator.appName;
+              }
+            }
+            // trim the fullVersion string at semicolon/space if present
+            if ((ix = fullVersion.indexOf(";")) != -1)
+              fullVersion = fullVersion.substring(0, ix);
+            if ((ix = fullVersion.indexOf(" ")) != -1)
+              fullVersion = fullVersion.substring(0, ix);
+
+            majorVersion = parseInt('' + fullVersion, 10);
+            if (isNaN(majorVersion)) {
+              fullVersion = '' + parseFloat(navigator.appVersion);
+              majorVersion = parseInt(navigator.appVersion, 10);
+            }
+
+            return browserName;
+          }
+
+          if (typeof MediaRecorder === 'undefined' || !navigator.getUserMedia) {
+            alert('MediaRecorder not supported on your browser, use Firefox 30 or Chrome 49 instead.');
+          }
+
+          if (getBrowser() == "Chrome") {
+            console.log('if Chrome');
+            var constraints = { "audio": true, "video": { "mandatory": { "minWidth": 640, "maxWidth": 640, "minHeight": 480, "maxHeight": 480 }, "optional": [] } }; //Chrome
+          } else if (getBrowser() == "Firefox") {
+            console.log('else Firefox');
+            var constraints = { audio: true, video: { width: { min: 640, ideal: 640, max: 640 }, height: { min: 480, ideal: 480, max: 480 } } }; //Firefox
+          } else {
+            console.log('else Chrome');
+            var constraints = { "audio": true, "video": false };//Chrome
+          }
+
+          let pre = document.querySelector('pre');
+          let shouldStop;
+          let stopped;
+          let mediaRecorder;
+          let audio = document.querySelector('audio');
+          let downloadLink = document.getElementById('download');
+          let startBtn = document.getElementById('startRecording');
+          let stopBtn = document.getElementById('stopRecording');
+          let codeBtn = document.querySelector('.js-code');
+
+          let handleSuccess = (stream) => {
+            let options;
+            let recordedChunks = [];
+            shouldStop = false;
+            stopped = false;
+
+            if (typeof MediaRecorder.isTypeSupported == 'function') {
+              if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+                options = { mimeType: 'audio/webm;codecs=opus' };
+              } else if (MediaRecorder.isTypeSupported('audio/ogg;codecs=opus')) {
+                options = { mimeType: 'audio/ogg;codecs=opus' };
+              }
+              console.log('mimeType: ' + options.mimeType);
+              mediaRecorder = new MediaRecorder(stream, options);
+            } else {
+              console.log('mimeType DEFAULT');
+              mediaRecorder = new MediaRecorder(stream);
+            }
+
+            startBtn.setAttribute('disabled', true);
+            stopBtn.removeAttribute('disabled');
+            mediaRecorder.start(10);
+
+            mediaRecorder.addEventListener('dataavailable', function (e) {
+              if (e.data.size > 0) {
+                recordedChunks.push(e.data);
+                console.log(e.data);
+              }
+
+              if (shouldStop === true && stopped === false) {
+                console.log('Stop');
+                stopBtn.setAttribute('disabled', true);
+                startBtn.removeAttribute('disabled');
+                mediaRecorder.stop();
+                stream.getAudioTracks().forEach(function (track) {
+                  track.stop();
+                });
+                stopped = true;
+              }
+            });
+
+            mediaRecorder.addEventListener('start', function (e) {
+              console.log('Started, state = ' + mediaRecorder.state);
+            });
+
+            mediaRecorder.addEventListener('stop', function () {
+              audio.src = URL.createObjectURL(new Blob(recordedChunks));
+              downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
+              downloadLink.download = 'AudioTest.wav';
+              downloadLink.classList.remove('hide');
+            });
+
+            mediaRecorder.addEventListener('warning', function (e) {
+              log('Warning: ' + e);
+            });
+
+            mediaRecorder.addEventListener('error', evt => {
+              console.log(evt);
+              reject(evt);
+            });
+          };
+
+          let errorCallback = (error) => {
+            alert(error);
+            console.log('navigator.getUserMedia error: ', error);
+          };
+
+          startBtn.addEventListener('click', () => {
+            navigator.getUserMedia({ "audio": true, "video": false }, handleSuccess, errorCallback);
+          });
+
+          stopBtn.addEventListener('click', () => {
+            shouldStop = true;
+          });
+
+          codeBtn.addEventListener('click', () => {
+            pre.classList.toggle('hide');
+            pre.innerHTML = document.querySelector('.containerScript').innerHTML;
+          });
+        </script>
+
+        <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+        <script src="{{url_for('static', filename='/js/app.js')}}"></script>
+        <script src="{{url_for('static', filename='/js/recorder.js')}}"></script>
+
+
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+{% endblock body %}
